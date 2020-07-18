@@ -1,0 +1,2 @@
+primefaces 6.2 jar Link: https://www.primefaces.org/downloads/
+primefaces all themes 1.0.10 jar Link: https://repository.primefaces.org/org/primefaces/themes/all-themes/1.0.10/
