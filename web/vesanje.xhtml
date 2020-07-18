@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Vesanje</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body"  style="background-image: url(resources/pacman.jpg);  background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+
+
+
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+
+        <p:panel class="panel1">
+            <h:form>
+                <p:outputLabel value="Takmičar:" class="registracija"/>
+                <p:outputLabel value="#{user.username}" style="color: #118c88; position: relative; top: -8px; left: 5px;"/>
+                <p:outputLabel value="Igra:" style="text-decoration: none; color: #333; position: relative; top: -8px; left: 10px;"/>
+                <p:outputLabel value="Vešanje" style="text-decoration: none; color: #ec06fb; position: relative; top: -8px; left: 15px;"/>
+                <p:commandLink value="Rezultati" action="takmicar_rezultati?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 20px;"/>
+                <p:commandLink value="Odjavi se" action="#{logOutController.logout()}" style="text-decoration: none; color: #15a526; position: relative; top: -8px; left: 25px;"/>
+            </h:form>
+        </p:panel>
+
+        <p:panel class="panel2">
+            <h:form id="formVesanje">
+                <p:growl id="growl" showDetail="true" life="1500"  /> 
+                <p:panelGrid  styleClass="ui-panelgrid-blank ui-fluid" style="padding: 10px; border-color: #eeecec; width: 100%; margin-top: 20px;">
+
+                    <p:column>
+                        <p:graphicImage id="slika" style="width: 55%" value="#{vesanje.slika}"/>
+                    </p:column>
+
+                    <p:column>
+
+                        <p:row>
+                            <p:outputLabel id="unesiteSlovo" value="Izaberite slovo:" style="margin-right: 5px;"/>
+                            <p:selectOneMenu value="#{vesanje.uneseno_slovo}" style="margin-right: 5px">
+                                <f:selectItem itemDisabled="#{vesanje.flag1}" itemValue="a" itemLabel="a"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag2}" itemValue="b" itemLabel="b"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag3}" itemValue="c" itemLabel="c"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag4}" itemValue="č" itemLabel="č"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag5}" itemValue="ć" itemLabel="ć"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag6}" itemValue="d" itemLabel="d"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag7}" itemValue="dž" itemLabel="dž"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag8}" itemValue="đ" itemLabel="đ"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag9}" itemValue="e" itemLabel="e"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag10}" itemValue="f" itemLabel="f"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag11}" itemValue="g" itemLabel="g"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag12}" itemValue="h" itemLabel="h"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag13}" itemValue="i" itemLabel="i"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag14}" itemValue="j" itemLabel="j"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag15}" itemValue="k" itemLabel="k"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag16}" itemValue="l" itemLabel="l"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag17}" itemValue="lj" itemLabel="lj"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag18}" itemValue="m" itemLabel="m"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag19}" itemValue="n" itemLabel="n"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag20}" itemValue="nj" itemLabel="nj"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag21}" itemValue="o" itemLabel="o"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag22}" itemValue="p" itemLabel="p"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag23}" itemValue="r" itemLabel="r"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag24}" itemValue="s" itemLabel="s"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag25}" itemValue="š" itemLabel="š"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag26}" itemValue="t" itemLabel="t"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag27}" itemValue="u" itemLabel="u"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag28}" itemValue="v" itemLabel="v"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag29}" itemValue="z" itemLabel="z"/>
+                                <f:selectItem itemDisabled="#{vesanje.flag30}" itemValue="ž" itemLabel="ž"/>
+                            </p:selectOneMenu>
+                        </p:row>
+
+                        <p:row>
+                            <p:commandButton id="dugmeUnesi" disabled="#{not vesanje.kraj}" value="UNESI" action="#{vesanje.unesi()}" update="formVesanje sakrivenaRec resenjereci slika" style="margin-right: 15px; color: #ec06fb"/>
+                        </p:row>
+
+                        <p:row>
+                            <p:outputLabel id="sakrivenaRec" rendered="#{not vesanje.promena}" value="#{vesanje.sakrivena_rec}" style=" font-size: medium; font-weight: bolder; margin-right: 15px"/>
+                            <p:outputLabel id="resenjereci" rendered="#{vesanje.promena}" value="#{vesanje.generisana_rec}" style=" font-size: medium; font-weight: bolder; margin-right: 15px; color: #ec06fb"/>
+                        </p:row>
+
+                        <p:row>
+                            <p:commandButton id="dugmeKraj" value="ZAVRŠI" action="#{vesanje.sudija_svira_kraj()}" disabled="#{vesanje.kraj}" update="formVesanje" style="margin-right: 15px; color: #ec06fb; margin-right: 15px"/>
+                        </p:row>
+
+                    </p:column>
+
+                </p:panelGrid>
+            </h:form>
+        </p:panel>
+
+        <div class="footer">
+            <img src="resources/logo.jpg" width="210" height="70"/>
+        </div>
+
+    </h:body>
+</html>
+

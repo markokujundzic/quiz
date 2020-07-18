@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Zaboravljena_lozinka</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body" style="background-image: url(resources/pacman.jpg); background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+        <p:panel class="pnl">
+            <h:form id="formPovratakLozinke">
+                <p:growl id="growl" showDetail="true" life="1500" /> 
+                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" style="margin-bottom: 5px">
+
+                    <p:outputLabel for="korimeReg" value="Korisničko ime:" style="color: #333;"/>
+                    <p:inputText autocomplete="off" id="korimeReg" value="#{zaboravljenalozinka.username}" required="true" requiredMessage="Korisničko ime je obavezno!" placeholder="Korisnicko ime" />
+
+                    <p:outputLabel for="jmbgZab" value="JMBG:" style="color: #333;"/>
+                    <p:inputText autocomplete="off" maxlength="13" id="jmbgZab" value="#{zaboravljenalozinka.jmbg}" required="true" requiredMessage="JMBG je obavezan!" placeholder="JMBG" />                
+                </p:panelGrid>
+
+                <div align="center" style="margin-bottom: 5px">
+                    <p:commandButton value="Povrati lozinku" action="#{zaboravljenalozinka.ispitaj()}" class="x" update="formPovratakLozinke"/>  
+                </div>
+
+            </h:form>
+
+            <h:form>
+                <div align="center">
+                    <p:commandLink value="Povratak na prethodnu stranu" action="index?faces-redirect=true" style="color: #ec06fb; text-decoration: none;" />
+                </div> 
+            </h:form>
+
+        </p:panel>
+
+        <div class="footer">
+            <img src="resources/logo.jpg" width="210" height="70"/>
+        </div>
+
+    </h:body>
+</html>
+

@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Supervizor Pehar</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body"  style="background-image: url(resources/pacman.jpg);  background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+        <p:panel class="panel1">
+            <h:form>
+                <p:growl id="growl" showDetail="true" life="1500" /> 
+
+                <p:outputLabel value="Supervizor:" class="registracija"/>
+                <p:outputLabel value="#{user.username}" style="color: #118c88; position: relative; top: -8px; left: 5px;"/>
+                <p:commandLink value="Revizija unetih pojmova" action="supervizor_revizija?faces-redirect=true" style="text-decoration: none; color: #ec06fb; position: relative; top: -8px; left: 10px;"/>
+                <p:commandLink value="Unos vešanja" action="supervizor_vesala?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 15px;  margin-right: 5px"/>
+                <p:commandLink value="Unos anagrama" action="supervizor_anagram?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 15px;  margin-right: 5px"/>
+                <p:commandLink value="Povratak na prethodnu stranu" action="supervizor?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 15px;"/>
+                <p:commandLink value="Odjavi se" action="#{logOutController.logout()}" style="text-decoration: none; color: #15a526; position: relative; top: -8px; left: 20px;"/>
+            </h:form>
+        </p:panel>
+
+
+        <p:panel class="panel2" style="height: 150%">
+            <h:form id="supervizorAnagram">
+                <p:growl id="growl" showDetail="true" life="1500"  /> 
+
+                <p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid" style="padding: 10px; width: 100%; margin-top: 40px;">
+
+                    <p:column>
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje1" value="Unesite 1. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit1" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_1}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje2" value="Unesite 2. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit2" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_2}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje3" value="Unesite 3. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit3" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_3}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje4" value="Unesite 4. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit4" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_4}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje5" value="Unesite 5. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit5" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_5}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje6" value="Unesite 6. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit6" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_6}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje7" value="Unesite 7. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit7" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_7}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje8" value="Unesite 8. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit8" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_8}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje9" value="Unesite 9. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit9" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_9}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje10" value="Unesite 10. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit10" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_10}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje11" value="Unesite 11. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit11" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_11}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje12" value="Unesite 12. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit12" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_12}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="pitanje13" value="Unesite 13. pitanje: " style="margin-right: 3px;"/>
+                                <p:inputText id="pit13" required="true" autocomplete="off" value="#{supervizor.pehar_pitanje_13}"/>
+                            </div>
+                        </p:row>
+
+
+                    </p:column>
+
+                    <p:column>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor1" value="Unesite 1. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg1" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_1}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor2" value="Unesite 2. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg2" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_2}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor3" value="Unesite 3. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg3" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_3}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor4" value="Unesite 4. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg4" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_4}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor5" value="Unesite 5. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg5" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_5}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor6" value="Unesite 6. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg6" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_6}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor7" value="Unesite 7. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg7" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_7}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor8" value="Unesite 8. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg8" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_8}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor9" value="Unesite 9. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg9" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_9}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor10" value="Unesite 10. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg10" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_10}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor11" value="Unesite 11. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg11" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_11}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor12" value="Unesite 12. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg12" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_12}"/>
+                            </div>
+                        </p:row>
+
+                        <p:row>
+                            <div style=" padding: 5px; " align="left">
+                                <p:outputLabel id="odgovor13" value="Unesite 13. odgovor: " style="margin-right: 3px;"/>
+                                <p:inputText id="odg13" required="true" autocomplete="off" value="#{supervizor.pehar_odgovor_13}"/>
+                            </div>
+                        </p:row>
+
+
+
+                    </p:column>
+
+                </p:panelGrid>
+
+                <div align="center">
+                    <p:commandButton id="dugme" action="#{supervizor.unesi_pehar()}" style="margin: auto; color: #ec06fb;" value="Unesi" update="supervizorAnagram"/>
+                </div>
+
+            </h:form>
+        </p:panel>
+
+    </h:body>
+</html>
+

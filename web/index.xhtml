@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Prijava</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body"  style="background-image: url(resources/pacman.jpg);  background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+
+
+
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+
+        <p:panel class="panel1">
+            <h:form>
+                <p:commandLink value="Registracija" style="text-decoration: none;color: #ec06fb" class="registracija" action="registracija?faces-redirect=true" />
+                <p:commandLink value="Promena lozinke" style="color: #118c88; text-decoration: none; position: relative; top: -8px; left: 5px;" action="promena_lozinke?faces-redirect=true" />
+                <p:commandLink value="Zaboravio/la sam lozinku" style="text-decoration: none;  color: #a5151d; position: relative; top: -8px; left: 10px;" action="zaboravio_lozinku?faces-redirect=true" />
+            </h:form>
+        </p:panel>
+
+        <p:panel class="panel2">
+            <h:form id="formLogIn">
+                <p:growl id="growl" showDetail="true" life="1500"  /> 
+
+                <h:panelGrid styleClass="ui-panelgrid-blank ui-fluid" columns="2" style="padding: 10px; width: 100%; margin-top: 40px; margin-bottom: 5px">
+
+                    <p:outputLabel for="usernameLogIn" value="Korisničko ime:" style="color: #333;"/>
+                    <p:inputText id="usernameLogIn" autocomplete="off" value="#{logInController.username}" required="true" requiredMessage="Korisničko ime je obavezno!" placeholder="Korisničko ime"/>
+
+                    <p:outputLabel for="passwordLogIn" value="Lozinka:"  style="color: #333;"/>
+                    <p:password id="passwordLogIn" value="#{logInController.password}" required="true" requiredMessage="Lozinka je obavezna!" placeholder="Lozinka" maxlength="12"/>
+
+                </h:panelGrid>
+                <div align="center">
+                    <p:commandButton value="Prijavi se" action="#{logInController.login()}" style="margin: auto; border-radius: 25px; margin-bottom: 5px" update="formLogIn"/>
+                </div>
+            </h:form>
+
+            <h:form>
+                <div align="center">
+                    <p:commandLink value="Nastavi kao gost" action="gost?faces-redirect=true" style="text-decoration: none; color: #ec06fb"/>
+                </div>
+            </h:form>
+
+        </p:panel>
+
+        <div class="footer">
+            <img src="resources/logo.jpg" width="210" height="70"/>
+        </div>
+
+    </h:body>
+</html>
+

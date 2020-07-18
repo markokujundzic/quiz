@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Administrator Biranje Igre Dana</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body" style="background-image: url(resources/pacman.jpg); background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+        <p:panel class="panel1">
+            <h:form>
+                <p:outputLabel value="Administrator:" class="registracija"/>
+                <p:outputLabel value="#{user.username}" style="color: #118c88; position: relative; top: -8px; left: 5px;"/>
+                <p:commandLink value="Provera zahteva za registraciju" style="text-decoration: none;  color: #a5151d; position: relative; top: -8px; left: 10px; margin-right: 5px" class="prijava" action="administrator_zahtevi?faces-redirect=true" />
+                <p:commandLink value="Povratak na prethodnu stranu" style="text-decoration: none;  color: #a5151d; position: relative; top: -8px; left: 10px;" class="prijava" action="administrator?faces-redirect=true" />
+                <p:commandLink value="Odjavi se" style="text-decoration: none;  color: #15a526; position: relative; top: -8px; left: 15px;" class="lozinka" action="#{logOutController.logout()}" />
+            </h:form>
+        </p:panel>
+
+        <p:panel class="panelAdmin" style="width: 80%; height: 150%">
+
+            <h:form id="formIgraDana">
+                <p:growl id="growl" showDetail="true" life="1500" /> 
+
+                <div align="center" style="padding: 10px">
+                    <p:outputLabel value="Odaberite datum:" style="margin-right: 5px"/>
+                    <p:calendar required="true" mindate="#{administrator.trenutni_datum}" value="#{administrator.odabrani_datum}"/>
+                </div>
+
+                <div align="center" style="padding: 10px">
+                    <p:commandButton value="Provera" style="color: #ec06fb" update="formIgraDana" disabled="#{administrator.flag_provera}" action="#{administrator.provera()}"/>
+                    <p:commandButton value="Napravi" style="color: #ec06fb" update="formIgraDana" disabled="#{administrator.napravi}" action="#{administrator.napravi()}"/>
+                    <p:commandButton value="Ažuriraj" style="color: #ec06fb" update="formIgraDana" disabled="#{administrator.azuriraj}" action="#{administrator.azuriraj()}"/>
+                    <p:commandButton value="Ne ažuriraj" style="color: #ec06fb" update="formIgraDana" disabled="#{administrator.ne_azuriraj}" action="#{administrator.ne_azuriraj()}"/>
+                </div>
+
+                <p:dataTable id="dt1" value="#{administrator.lista_anagrama}" var="anagraml">
+
+                    <f:facet name="header">
+                        Anagram
+                    </f:facet>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Pitanje</f:facet>
+                        <p:outputLabel value="#{anagraml.pitanje}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor</f:facet>
+                        <p:outputLabel value="#{anagraml.odgovor}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Izaberi</f:facet>
+                        <div align = "center">
+                            <p:commandButton value="Izaberi" id="dugme" disabled="#{administrator.flag_anagram || administrator.blok}" action="#{administrator.izaberi_anagram(anagraml.id)}" style="margin: auto; color: #ec06fb" update="formIgraDana"/>
+                        </div>
+                    </p:column>
+
+                </p:dataTable>
+
+                <br></br>
+                <br></br>
+                <br></br>
+
+                <p:dataTable id="dt2" value="#{administrator.lista_vesala}" var="vesalal">
+
+                    <f:facet name="header">
+                        Vešala
+                    </f:facet>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Reč</f:facet>
+                        <p:outputLabel value="#{vesalal.rec_koja_se_pogadja}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Izaberi</f:facet>
+                        <div align = "center">
+                            <p:commandButton value="Izaberi" id="dugme1" disabled="#{administrator.flag_vesala || administrator.blok}" action="#{administrator.izaberi_vesala(vesalal.id)}" style="margin: auto; color: #ec06fb" update="formIgraDana"/>
+                        </div>
+                    </p:column>
+
+                </p:dataTable>
+
+                <br></br>
+                <br></br>
+                <br></br>
+
+                <p:dataTable id="dt3" value="#{administrator.lista_pehara}" var="peharl">
+
+                    <f:facet name="header">
+                        Pehar
+                    </f:facet>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 1</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_1}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 2</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_2}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 3</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_3}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 4</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_4}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 5</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_5}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 6</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_6}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 7</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_7}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 8</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_8}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 9</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_9}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 10</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_10}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 11</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_11}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 12</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_12}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Odgovor 13</f:facet>
+                        <p:outputLabel value="#{peharl.odgovor_broj_13}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Izaberi</f:facet>
+                        <div align = "center">
+                            <p:commandButton value="Izaberi" id="dugme2" disabled="#{administrator.flag_pehar || administrator.blok}" action="#{administrator.izaberi_pehar(peharl.id)}" style="margin: auto; color: #ec06fb" update="formIgraDana"/>
+                        </div>
+                    </p:column>
+
+                </p:dataTable>
+
+            </h:form>
+
+        </p:panel>
+    </h:body>
+</html>
+

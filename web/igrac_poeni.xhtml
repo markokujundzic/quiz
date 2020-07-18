@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Poeni</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body" style="background-image: url(resources/pacman.jpg); background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+        <p:panel class="panel1">
+            <h:form>
+                <p:outputLabel value="Takmičar:" class="registracija"/>
+                <p:outputLabel value="#{user.username}" style="color: #118c88; position: relative; top: -8px; left: 5px;"/>
+                <p:commandLink value="Rezultati" action="takmicar_rezultati?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 10px;"/>
+                <p:commandLink value="Odjavi se" action="#{logOutController.logout()}" style="text-decoration: none; color: #15a526; position: relative; top: -8px; left: 15px;"/>
+            </h:form>
+        </p:panel>
+
+        <p:panel class="panelAdmin" style="width: 80%; height: 150%">
+
+            <h:form id="formIgraDana">
+                <p:growl id="growl" showDetail="true" life="1500" /> 
+
+
+                <p:dataTable id="dt1" value="#{igrac_poeni.poeni}">
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Korisničko ime</f:facet>
+                        <p:outputLabel value="#{igrac_poeni.poeni.username}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Anagram</f:facet>
+                        <p:outputLabel value="#{igrac_poeni.poeni.anagram}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Moj broj</f:facet>
+                        <p:outputLabel value="#{igrac_poeni.poeni.mojbroj}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Vešala</f:facet>
+                        <p:outputLabel value="#{igrac_poeni.poeni.vesala}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Zanimljiva geografija</f:facet>
+                        <p:outputLabel value="#{igrac_poeni.poeni.zanimljivageografija}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Pehar</f:facet>
+                        <p:outputLabel value="#{igrac_poeni.poeni.pehar}"></p:outputLabel>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header">Ukupno</f:facet>
+                        <p:outputLabel value="#{igrac_poeni.poeni.ukupno}" style="color: #ec06fb;"></p:outputLabel>
+                    </p:column>
+
+                </p:dataTable>
+
+            </h:form>
+
+        </p:panel>
+
+        <div class="footer">
+            <img src="resources/logo.jpg" width="210" height="70"/>
+        </div>
+
+    </h:body>
+</html>
+

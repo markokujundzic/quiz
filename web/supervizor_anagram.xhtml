@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Supervizor Anagram</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body"  style="background-image: url(resources/pacman.jpg);  background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+        <p:panel class="panel1">
+            <h:form>
+                <p:growl id="growl" showDetail="true" life="1500" /> 
+
+                <p:outputLabel value="Supervizor:" class="registracija"/>
+                <p:outputLabel value="#{user.username}" style="color: #118c88; position: relative; top: -8px; left: 5px;"/>
+                <p:commandLink value="Revizija unetih pojmova" action="supervizor_revizija?faces-redirect=true" style="text-decoration: none; color: #ec06fb; position: relative; top: -8px; left: 10px;"/>
+                <p:commandLink value="Unos vešanja" action="supervizor_vesala?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 15px;  margin-right: 5px"/>
+                <p:commandLink value="Unos pehara" action="supervizor_pehar?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 15px;  margin-right: 5px"/>
+                <p:commandLink value="Povratak na prethodnu stranu" action="#{supervizor.povratak()}" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 15px;"/>
+                <p:commandLink value="Odjavi se" action="#{logOutController.logout()}" style="text-decoration: none; color: #15a526; position: relative; top: -8px; left: 20px;"/>
+            </h:form>
+        </p:panel>
+
+
+        <p:panel class="panel2">
+            <h:form id="supervizorAnagram" enctype="multipart/form-data" prependId="false">
+                <p:growl id="growl" showDetail="true" life="1500"  /> 
+
+                <p:panelGrid rendered="#{supervizor.blok1}" columns="2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" style="margin-bottom: 5px;">
+                    <p:outputLabel value="Izaberite: " style="margin-right: 5px"/>
+                    <p:selectOneRadio id="radio" value="#{supervizor.vrsta}">
+                        <f:selectItem itemValue="rebus" itemLabel="Rebus"/>
+                        <f:selectItem itemValue="anagram" itemLabel="Anagram"/>
+                    </p:selectOneRadio>
+                </p:panelGrid>
+
+                <div align="center">
+                    <p:commandButton id="dugmence" rendered="#{supervizor.blok1}" action="#{supervizor.izaberi()}" style="margin: auto; color: #ec06fb; display: block;" value="Izaberi" update="supervizorAnagram"/>
+                </div>
+
+                <p:panelGrid columns="2" rendered="#{not supervizor.blok1}" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" style="margin-bottom: 5px;">
+
+                    <p:outputLabel id="pitanjejedan" rendered="#{not supervizor.blok}" value="Unesite rebus: " style="margin-right: 5px;"/>
+                    <p:fileUpload style="width: 100%" id="fajlaploud" required="true" value="#{supervizor.slika}" rendered="#{not supervizor.blok}" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" mode="simple" skinSimple="true"/>
+
+                    <p:outputLabel id="pitanje" rendered="#{supervizor.blok}" value="Unesite pitanje: " style="margin-right: 5px;"/>
+                    <p:inputText id="pit" required="true" rendered="#{supervizor.blok}" autocomplete="off" value="#{supervizor.anagram_pitanje}"/>
+
+                    <p:outputLabel id="odgovor" value="Unesite odgovor: " style="margin-right: 5px"/>
+                    <p:inputText id="ogd" autocomplete="off" required="true" value="#{supervizor.anagram_odgovor}"/>
+
+                </p:panelGrid>
+
+                <div align="center">
+                    <p:commandButton id="dugme" rendered="#{not supervizor.blok1}" ajax="false" action="#{supervizor.unesi_anagram()}" style="margin: auto; color: #ec06fb; display: block;" value="Unesi" update="supervizorAnagram"/>
+                </div>
+
+            </h:form>
+        </p:panel>
+
+
+        <div class="footer">
+            <img src="resources/logo.jpg" width="210" height="70"/>
+        </div>
+
+    </h:body>
+</html>
+

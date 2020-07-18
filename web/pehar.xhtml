@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Pehar</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body"  style="background-image: url(resources/pacman.jpg);  background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+
+
+
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+
+        <p:panel class="panel1">
+            <h:form>
+                <p:outputLabel value="Takmičar:" class="registracija"/>
+                <p:outputLabel value="#{user.username}" style="color: #118c88; position: relative; top: -8px; left: 5px;"/>
+                <p:outputLabel value="Igra:" style="text-decoration: none; color: #333; position: relative; top: -8px; left: 10px;"/>
+                <p:outputLabel value="Pehar" style="text-decoration: none; color: #ec06fb; position: relative; top: -8px; left: 15px;"/>
+                <p:commandLink value="Rezultati" action="takmicar_rezultati?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 20px;"/>
+                <p:commandLink value="Odjavi se" action="#{logOutController.logout()}" style="text-decoration: none; color: #15a526; position: relative; top: -8px; left: 25px;"/>
+            </h:form>
+        </p:panel>
+
+        <p:panel class="panel2" style="height: 150%;">
+            <h:form id="formPehar">
+                <p:growl id="growl" showDetail="true" life="1500"  /> 
+                <p:panelGrid style="padding: 10px; width: 100%; margin-top: 40px;">
+
+                    <p:row>
+                        <div align="center">
+                            <p:outputLabel value="#{pehar.pehar_tajmer}" id="tajmer" style="color: #ec06fb; font-weight: bold;"/>
+                            <p:poll interval="1" listener="#{pehar.kreni()}" update="tajmer formPehar"/> 
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 10px; margin-top: 5px">
+                            <p:outputLabel value="#{pehar.trenutno_pitanje}" id="pitanje" style="font-weight: bold;"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 10px">
+                            <p:commandButton value="Pitanje 1" disabled="#{pehar.dugme1}" action="#{pehar.odgovori1()}" id="dugme1" style="margin-right: 5px" update="formPehar dugme1 input1"/>
+                            <p:commandButton value="Pitanje 2" disabled="#{pehar.dugme2}" action="#{pehar.odgovori2()}" id="dugme2" style="margin-right: 5px" update="formPehar dugme2 input2"/>
+                            <p:commandButton value="Pitanje 3" disabled="#{pehar.dugme3}" action="#{pehar.odgovori3()}" id="dugme3" style="margin-right: 5px" update="formPehar dugme3 input3"/>
+                            <p:commandButton value="Pitanje 4" disabled="#{pehar.dugme4}" action="#{pehar.odgovori4()}" id="dugme4" style="margin-right: 5px" update="formPehar dugme4 input4"/>
+                            <p:commandButton value="Pitanje 5" disabled="#{pehar.dugme5}" action="#{pehar.odgovori5()}" id="dugme5" style="margin-right: 5px" update="formPehar dugme5 input5"/>
+                            <p:commandButton value="Pitanje 6" disabled="#{pehar.dugme6}" action="#{pehar.odgovori6()}" id="dugme6" style="margin-right: 5px" update="formPehar dugme6 input6"/> 
+                        </div>
+
+                        <div align="center" style="margin-bottom: 10px">
+                            <p:commandButton value="Pitanje 7" disabled="#{pehar.dugme7}" action="#{pehar.odgovori7()}" id="dugme7" style="margin-right: 5px" update="formPehar dugme7 input7"/>
+                        </div>
+
+                        <div align="center" style="margin-bottom: 10px">
+                            <p:commandButton value="Pitanje 8" disabled="#{pehar.dugme8}" action="#{pehar.odgovori8()}" id="dugme8" style="margin-right: 5px" update="formPehar dugme8 input8"/>
+                            <p:commandButton value="Pitanje 9" disabled="#{pehar.dugme9}" action="#{pehar.odgovori9()}" id="dugme9" style="margin-right: 5px" update="formPehar dugme9 input9"/>
+                            <p:commandButton value="Pitanje 10" disabled="#{pehar.dugme10}" action="#{pehar.odgovori10()}" id="dugme10" style="margin-right: 5px" update="formPehar dugme10 input10"/>
+                            <p:commandButton value="Pitanje 11" disabled="#{pehar.dugme11}" action="#{pehar.odgovori11()}" id="dugme11" style="margin-right: 5px" update="formPehar dugme11 input11"/>
+                            <p:commandButton value="Pitanje 12" disabled="#{pehar.dugme12}" action="#{pehar.odgovori12()}" id="dugme12" style="margin-right: 5px" update="formPehar dugme12 input12"/>
+                            <p:commandButton value="Pitanje 13" disabled="#{pehar.dugme13}" action="#{pehar.odgovori13()}" id="dugme13" style="margin-right: 5px" update="formPehar dugme13 input13"/> 
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor1}" maxlength="9" disabled="#{pehar.dugme1}" id="input1" style="width: 50%; text-align: center; #{pehar.pogresno1 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor2}" maxlength="8" disabled="#{pehar.dugme2}" id="input2" style="width: 45%; text-align: center; #{pehar.pogresno2 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor3}" maxlength="7" disabled="#{pehar.dugme3}" id="input3" style="width: 40%; text-align: center; #{pehar.pogresno3 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor4}" maxlength="6" disabled="#{pehar.dugme4}" id="input4" style="width: 35%; text-align: center; #{pehar.pogresno4 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor5}" maxlength="5" disabled="#{pehar.dugme5}" id="input5" style="width: 30%; text-align: center; #{pehar.pogresno5 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor6}" maxlength="4" disabled="#{pehar.dugme6}" id="input6" style="width: 25%; text-align: center; #{pehar.pogresno6 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor7}" maxlength="3" disabled="#{pehar.dugme7}" id="input7" style="width: 20%; text-align: center; #{pehar.pogresno7 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor8}" maxlength="4" disabled="#{pehar.dugme8}" id="input8" style="width: 25%; text-align: center; #{pehar.pogresno8 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor9}" maxlength="5" disabled="#{pehar.dugme9}" id="input9" style="width: 30%; text-align: center; #{pehar.pogresno9 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor10}" maxlength="6" disabled="#{pehar.dugme10}" id="input10" style="width: 35%; text-align: center; #{pehar.pogresno10 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor11}" maxlength="7" disabled="#{pehar.dugme11}" id="input11" style="width: 40%; text-align: center; #{pehar.pogresno11 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:inputText value="#{pehar.odgovor12}" maxlength="8" disabled="#{pehar.dugme12}" id="input12" style="width: 45%; text-align: center; #{pehar.pogresno12 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 10px">
+                            <p:inputText value="#{pehar.odgovor13}" maxlength="9" disabled="#{pehar.dugme13}" id="input13" style="width: 50%; text-align: center; #{pehar.pogresno13 ? 'color: #ec06fb;' : ''}"/>
+                        </div>
+                    </p:row>
+
+                    <div align="center" style="margin-bottom: 10px">
+                        <p:commandButton value="Završi" disabled="#{pehar.dugme_kraj}" action="#{pehar.kraj()}" id="dugme14" style="color: #ec06fb; margin-right: 5px" update="formPehar dugme14"/>
+                    </div>
+
+                </p:panelGrid>
+            </h:form>
+        </p:panel>
+
+
+    </h:body>
+</html>
+

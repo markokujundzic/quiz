@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Zanimljiva geografija</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body" style="background-image: url(resources/pacman.jpg);  background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+
+
+
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+
+        <p:panel class="panel1">
+            <h:form>
+                <p:outputLabel value="Takmičar:" class="registracija"/>
+                <p:outputLabel value="#{user.username}" style="color: #118c88; position: relative; top: -8px; left: 5px;"/>
+                <p:outputLabel value="Igra:" style="text-decoration: none; color: #333; position: relative; top: -8px; left: 10px;"/>
+                <p:outputLabel value="Zanimljiva geografija" style="text-decoration: none; color: #ec06fb; position: relative; top: -8px; left: 15px;"/>
+                <p:commandLink value="Rezultati" action="takmicar_rezultati?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 20px;"/>
+                <p:commandLink value="Odjavi se" action="#{logOutController.logout()}" style="text-decoration: none; color: #15a526; position: relative; top: -8px; left: 25px;"/>
+            </h:form>
+        </p:panel>
+
+        <p:panel class="panel2">
+            <h:form id="formZG">
+                <p:growl id="growl" showDetail="true" life="1500"  /> 
+
+                <div align="center">
+                    <p:outputLabel value="#{zanimljiva_geografija.zanimljiva_geografija_tajmer}" id="tajmer" style="margin:auto; display: block; margin-right: 3px; padding: 10px; color: #ec06fb; font-weight: bold"/>
+                    <p:poll interval="1" listener="#{zanimljiva_geografija.kreni()}" update="tajmer formZG"/> 
+                </div>
+
+                <div align="center">
+                    <p:outputLabel value="Na slovo: " id="naslovo" style=" font-weight: bold;"/>
+                    <p:outputLabel value="#{zanimljiva_geografija.generisano_slovo}" id="slovo" style="font-weight: bold; color: #ec06fb; "/>
+                </div>
+
+                <p:panelGrid styleClass="ui-panelgrid-blank ui-fluid" columns="2" style="padding: 10px; width: 100%; margin-top: 40px;">
+
+
+                    <p:outputLabel value="Država: " id="drzava" style=" font-weight: bold; margin-right: 5px"/>
+                    <p:inputText id="text1" value="#{zanimljiva_geografija.drzava}" autocomplete="off" disabled="#{zanimljiva_geografija.zakljucan}"/>
+
+                    <p:outputLabel value="Grad: " id="grad" style=" font-weight: bold; margin-right: 5px"/>
+                    <p:inputText id="text2" value="#{zanimljiva_geografija.grad}" autocomplete="off" disabled="#{zanimljiva_geografija.zakljucan}"/>
+
+                    <p:outputLabel value="Jezero: " id="jezero" style=" font-weight: bold; margin-right: 5px"/>
+                    <p:inputText id="text3" value="#{zanimljiva_geografija.jezero}" autocomplete="off" disabled="#{zanimljiva_geografija.zakljucan}"/>
+
+                    <p:outputLabel value="Planina: " id="planina" style=" font-weight: bold; margin-right: 5px"/>
+                    <p:inputText id="text4" value="#{zanimljiva_geografija.planina}" autocomplete="off" disabled="#{zanimljiva_geografija.zakljucan}"/>
+
+                    <p:outputLabel value="Reka: " id="reka" style=" font-weight: bold; margin-right: 5px"/>
+                    <p:inputText id="text5" value="#{zanimljiva_geografija.reka}" autocomplete="off" disabled="#{zanimljiva_geografija.zakljucan}"/>
+
+                    <p:outputLabel value="Životinja: " id="zivotinja" style=" font-weight: bold; margin-right: 5px"/>
+                    <p:inputText id="text6" value="#{zanimljiva_geografija.zivotinja}" autocomplete="off" disabled="#{zanimljiva_geografija.zakljucan}"/>
+
+                    <p:outputLabel value="Biljka: " id="biljka" style=" font-weight: bold; margin-right: 5px"/>
+                    <p:inputText id="text7" value="#{zanimljiva_geografija.biljka}" autocomplete="off" disabled="#{zanimljiva_geografija.zakljucan}"/>
+
+                    <p:outputLabel value="Grupa: " id="grupa" style=" font-weight: bold; margin-right: 5px"/>
+                    <p:inputText id="text8" value="#{zanimljiva_geografija.grupa}" autocomplete="off" disabled="#{zanimljiva_geografija.zakljucan}"/>
+
+                </p:panelGrid>
+
+                <div align="center" style="margin-top: 8px">
+                    <p:commandButton id="posalji" value="POŠALJI" disabled="#{zanimljiva_geografija.posalji_flag}" action="#{zanimljiva_geografija.posalji()}" update="formZG" style="color: #ec06fb;"/>
+                    <p:commandButton id="provera" value="PROVERA" disabled="#{supervizor.provera_flag || not zanimljiva_geografija.posalji_flag}" action="#{supervizor.provera()}" update="formZG" style="color: #ec06fb;"/>
+                    <p:commandButton id="zavrsi" action="#{zanimljiva_geografija.zavrsi()}" disabled="#{not zanimljiva_geografija.flag_zavrsi}" value="ZAVRŠI" update="formZG" style="color: #ec06fb;"/>
+                    <p:poll interval="1" listener="#{supervizor.proveri()}" update="posalji zavrsi formZG"/> 
+                </div>
+            </h:form>
+        </p:panel>
+
+        <div class="footer">
+            <img src="resources/logo.jpg" width="210" height="70"/>
+        </div>
+
+    </h:body>
+</html>
+

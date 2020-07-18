@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registracija</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body" style="background-image: url(resources/pacman.jpg); background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+        <p:panel class="pnl">
+            <h:form id="formReg" enctype="multipart/form-data" prependId="false">
+                <p:growl id="growl" showDetail="true" life="1500" /> 
+                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+                    <p:outputLabel for="imeReg" value="Ime:" style="color:#333"/>
+                    <p:inputText autocomplete="off" id="imeReg" value="#{registracija.ime}" required="true" requiredMessage="Ime je obavezno!" placeholder="Ime" />
+
+                    <p:outputLabel for="prezimeReg" value="Prezime:" style="color:#333"/>
+                    <p:inputText autocomplete="off" id="prezimeReg" value="#{registracija.prezime}" required="true" requiredMessage="Prezime je obavezno!" placeholder="Prezime" />
+
+                    <p:outputLabel for="zanimanjeReg" value="Zanimanje:" style="color:#333"/>
+                    <p:inputText autocomplete="off" id="zanimanjeReg" value="#{registracija.zanimanje}" required="true" requiredMessage="Zanimanje je obavezno!" placeholder="Zanimanje" />
+
+                    <p:outputLabel for="korimeReg" value="Korisnicko ime:" style="color: #333;"/>
+                    <p:inputText autocomplete="off" id="korimeReg" value="#{registracija.username}" required="true" requiredMessage="Korisničko ime je obavezno!" placeholder="Korisnicko ime" />
+
+                    <p:outputLabel for="lozinkaReg" value="Lozinka:" style="color: #333;"/>
+                    <p:password id="lozinkaReg" value="#{registracija.password}" match="loz" required="true" requiredMessage="Lozinka je obavezna!" placeholder="Lozinka">
+                        <f:validateRegex pattern="^(?=.{8,12}$)(?!.*(\S)\1{2})(?=.*[A-Z])(?=.*[a-z]{3})(?=.*\d)(?=.*[^a-zA-Z0-9])([a-zA-Z]\S*)$"/>
+                    </p:password>
+
+                    <p:outputLabel for="loz" value="Potvrdite lozinku:" style="color: #333;"/>
+                    <p:password id="loz" required="true" requiredMessage="Potvrda lozinke je obavezna!" placeholder="Potvrda lozinke">   
+                        <f:validateRegex pattern="^(?=.{8,12}$)(?!.*(\S)\1{2})(?=.*[A-Z])(?=.*[a-z]{3})(?=.*\d)(?=.*[^a-zA-Z0-9])([a-zA-Z]\S*)$"/>
+                    </p:password>
+
+                    <p:outputLabel for="jmbgReg" value="JMBG:" style="color:#333"/>
+                    <p:inputText autocomplete="off" maxlength="13" id="jmbgReg" value="#{registracija.jmbg}" required="true" requiredMessage="JMBG je obavezan!" placeholder="JMBG" />
+
+                    <p:outputLabel for="emailReg" value="E-mail:" style="color: #333"/>
+                    <p:inputText autocomplete="off" id="emailReg" value="#{registracija.email}" required="true" requiredMessage="E-mail je obavezan!" placeholder="E-mail">
+                        <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+                    </p:inputText>
+
+                    <p:outputLabel for="pitanjeReg" value="Unesite tajno pitanje:" style="color: #333"/>
+                    <p:inputText autocomplete="off" id="pitanjeReg" value="#{registracija.pitanje}" required="true" style="color: #333" requiredMessage="Pitanje je obavezno!" placeholder="Tajno pitanje" />
+
+                    <p:outputLabel for="odgovorReg" value="Odgovor na tajno pitanje:" style="color: #333"/>
+                    <p:inputText autocomplete="off" id="odgovorReg" value="#{registracija.odgovor}" required="true" requiredMessage="Odgovor je obavezan!" placeholder="Odgovor na tajno pitanje" />
+
+                    <p:outputLabel for="polReg" value="Pol:" style="color: #333"/>
+                    <p:selectOneMenu id="polReg" value="#{registracija.pol}" style="color: #333">
+                        <f:selectItem itemValue="muski" itemLabel="Muški"/>
+                        <f:selectItem itemValue="zenski" itemLabel="Ženski"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="tipReg" value="Izaberite tip registracije:" style="color: #333"/>
+                    <p:selectOneMenu id="tipReg" value="#{registracija.tip}" style="color: #333">
+                        <f:selectItem itemValue="takmicar" itemLabel="Takmičar"/>
+                        <f:selectItem itemValue="administrator" itemLabel="Administrator"/>
+                        <f:selectItem itemValue="supervizor" itemLabel="Supervizor"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Upload:"/>
+                    <p:fileUpload value="#{registracija.slika}" style="width: 100%" sizeLimit="360000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" mode="simple" skinSimple="true"/>
+
+
+
+                </p:panelGrid>
+
+                <div align="center" style="margin-bottom: 5px">
+                    <p:commandButton value="Registruj se" action="#{registracija.registracija()}" ajax="false" style="margin: auto; border-radius: 25px; margin-bottom: 5px" update="formReg"/>  
+                </div>
+
+            </h:form>
+
+            <h:form>
+                <div align="center">
+                    <p:commandLink value="Povratak na prethodnu stranu" action="index?faces-redirect=true" style="color: #ec06fb; text-decoration: none;" />
+                </div>  
+            </h:form>
+
+        </p:panel>
+
+    </h:body>
+</html>
+

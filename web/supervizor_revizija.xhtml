@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Supervizor revizija</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body" style="background-image: url(resources/pacman.jpg); background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+        <p:panel class="panel1">
+            <h:form>
+                <p:outputLabel value="Supervizor:" class="registracija"/>
+                <p:outputLabel value="#{user.username}" style="color: #118c88; position: relative; top: -8px; left: 5px;"/>
+                <p:commandLink value="Unos anagrama" action="supervizor_anagram?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 10px; margin-right: 5px"/>
+                <p:commandLink value="Unos vešanja" action="supervizor_vesala?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 10px; margin-right: 5px"/>
+                <p:commandLink value="Unos pehara" action="supervizor_pehar?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 10px; margin-right: 10px"/>
+                <p:commandLink value="Povratak na prethodnu stranu" style="text-decoration: none;  color: #a5151d; position: relative; top: -8px; left: 5px;" class="prijava" action="supervizor?faces-redirect=true" />
+                <p:commandLink value="Odjavi se" style="text-decoration: none;  color: #15a526; position: relative; top: -8px; left: 10px;" class="lozinka" action="#{logOutController.logout()}" />
+            </h:form>
+        </p:panel>
+
+        <p:panel class="panelAdmin" style="width: 80%">
+            <h:form id="formSupervizor">
+                <p:growl id="growl" showDetail="true" life="1500" /> 
+                <p:dataTable value="#{zanimljiva_geografija.lista_odgovora}" var="odgovor">
+
+                    <f:facet name="header">
+                        Revizija pojmova
+                    </f:facet>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header"> Država </f:facet>
+                        <p:outputLabel value="#{odgovor.drzava}" style="font-weight: bold; margin-bottom: 5px"></p:outputLabel>
+                        <div align = "center">
+                            <p:commandButton value="Potvrdi" id="drzava" disabled="#{supervizor.odbaci_drzava || supervizor.flag_drzava}" action="#{supervizor.odobri_drzavu(odgovor.drzava)}" style="margin: auto; color: #ec06fb; margin-bottom: 5px" update="formSupervizor drzava drzava1 kraj"/>
+                            <p:commandButton value="Odbaci" id="drzava1" disabled="#{supervizor.odbaci_drzava || supervizor.flag_drzava}" action="#{supervizor.odbaci_drzavu()}" style="margin: auto;" update="formSupervizor drzava drzava1 kraj"/>
+                        </div>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header"> Grad </f:facet>
+                        <p:outputLabel value="#{odgovor.grad}" style=" font-weight: bold; margin-bottom: 5px"></p:outputLabel>
+                        <div align = "center">
+                            <p:commandButton value="Potvrdi" id="grad" disabled="#{supervizor.odbaci_grad || supervizor.flag_grad}" action="#{supervizor.odobri_grad(odgovor.grad)}" style="margin: auto; color: #ec06fb; margin-bottom: 5px" update="formSupervizor grad grad1 kraj"/>
+                            <p:commandButton value="Odbaci" id="grad1" disabled="#{supervizor.odbaci_grad || supervizor.flag_grad}" action="#{supervizor.odbaci_grad()}" style="margin: auto;" update="formSupervizor grad grad1 kraj"/>
+                        </div>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header"> Jezero </f:facet>
+                        <p:outputLabel value="#{odgovor.jezero}" style=" font-weight: bold; margin-bottom: 5px"></p:outputLabel>
+                        <div align = "center">
+                            <p:commandButton value="Potvrdi" id="jezero" disabled="#{supervizor.odbaci_jezero || supervizor.flag_jezero}" action="#{supervizor.odobri_jezero(odgovor.jezero)}" style="margin: auto; color: #ec06fb; margin-bottom: 5px" update="formSupervizor jezero jezero1 kraj"/>
+                            <p:commandButton value="Odbaci" id="jezero1" disabled="#{supervizor.odbaci_jezero || supervizor.flag_jezero}" action="#{supervizor.odbaci_jezero()}" style="margin: auto;" update="formSupervizor jezero jezero1 kraj"/>
+                        </div>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header"> Planina </f:facet>
+                        <p:outputLabel value="#{odgovor.planina}" style=" font-weight: bold; margin-bottom: 5px"></p:outputLabel>
+                        <div align = "center">
+                            <p:commandButton value="Potvrdi" id="p" disabled="#{supervizor.odbaci_planina || supervizor.flag_planina}" action="#{supervizor.odobri_planinu(odgovor.planina)}" style="margin: auto; color: #ec06fb; margin-bottom: 5px" update="formSupervizor p p1 kraj"/>
+                            <p:commandButton value="Odbaci" id="p1" disabled="#{supervizor.odbaci_planina || supervizor.flag_planina}" action="#{supervizor.odbaci_planina()}" style="margin: auto;" update="formSupervizor p p1 kraj"/>
+                        </div>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header"> Reka </f:facet>
+                        <p:outputLabel value="#{odgovor.reka}" style=" font-weight: bold; margin-bottom: 5px"></p:outputLabel>
+                        <div align = "center">
+                            <p:commandButton value="Potvrdi" id="r" disabled="#{supervizor.odbaci_reka || supervizor.flag_reka}" action="#{supervizor.odobri_reku(odgovor.reka)}" style="margin: auto; color: #ec06fb; margin-bottom: 5px" update="formSupervizor r r1 kraj"/>
+                            <p:commandButton value="Odbaci" id="r1" disabled="#{supervizor.odbaci_reka || supervizor.flag_reka}" action="#{supervizor.odbaci_reka()}" style="margin: auto;" update="formSupervizor r r1 kraj"/>
+                        </div>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header"> Životinja </f:facet>
+                        <p:outputLabel value="#{odgovor.zivotinja}" style=" font-weight: bold; margin-bottom: 5px"></p:outputLabel>
+                        <div align = "center">
+                            <p:commandButton value="Potvrdi" id="z" disabled="#{supervizor.odbaci_zivotinja || supervizor.flag_zivotinja}" action="#{supervizor.odobri_zivotinju(odgovor.zivotinja)}" style="margin: auto; color: #ec06fb; margin-bottom: 5px" update="formSupervizor z z1 kraj"/>
+                            <p:commandButton value="Odbaci" id="z1" disabled="#{supervizor.odbaci_zivotinja || supervizor.flag_zivotinja}" action="#{supervizor.odbaci_zivotinja()}" style="margin: auto;" update="formSupervizor z z1 kraj"/>
+                        </div>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header"> Biljka </f:facet>
+                        <p:outputLabel value="#{odgovor.biljka}" style=" font-weight: bold; margin-bottom: 5px"></p:outputLabel>
+                        <div align = "center">
+                            <p:commandButton value="Potvrdi" id="b" disabled="#{supervizor.odbaci_biljka || supervizor.flag_biljka}" action="#{supervizor.odobri_biljku(odgovor.biljka)}" style="margin: auto; color: #ec06fb; margin-bottom: 5px" update="formSupervizor b b1 kraj"/>
+                            <p:commandButton value="Odbaci" id="b1" disabled="#{supervizor.odbaci_biljka || supervizor.flag_biljka}" action="#{supervizor.odbaci_biljka()}" style="margin: auto;" update="formSupervizor b b1 kraj"/>
+                        </div>
+                    </p:column>
+
+                    <p:column style="text-align: center">
+                        <f:facet name="header"> Grupa </f:facet>
+                        <p:outputLabel value="#{odgovor.grupa}" style=" font-weight: bold; margin-bottom: 5px"></p:outputLabel>
+                        <div align = "center">
+                            <p:commandButton value="Potvrdi" id="g" disabled="#{supervizor.odbaci_grupa || supervizor.flag_grupa}" action="#{supervizor.odobri_grupu(odgovor.grupa)}" style="margin: auto; color: #ec06fb; margin-bottom: 5px" update="formSupervizor g g1 kraj"/>
+                            <p:commandButton value="Odbaci" id="g1" disabled="#{supervizor.odbaci_grupa || supervizor.flag_grupa}" action="#{supervizor.odbaci_grupa()}" style="margin: auto;" update="formSupervizor g g1 kraj"/>
+                        </div>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header"> Završi </f:facet>
+                        <div align = "center">
+                            <p:commandButton value="Kraj" id="kraj" disabled="#{supervizor.a or supervizor.b or supervizor.c or supervizor.d or supervizor.e or supervizor.f or supervizor.g or supervizor.h}" action="#{supervizor.dodeli_poene(odgovor)}" style="margin: auto; color: #ec06fb" update="formSupervizor"/>
+                        </div>
+                    </p:column>
+
+                </p:dataTable>
+
+            </h:form>
+
+        </p:panel>
+
+        <div class="footer">
+            <img src="resources/logo.jpg" width="210" height="70"/>
+        </div>
+
+    </h:body>
+</html>
+

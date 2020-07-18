@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Moj broj</title>
+        <h:outputStylesheet library="css" name="final.css"/>   
+    </h:head>
+
+    <h:body class="body"  style="background-image: url(resources/pacman.jpg);  background-attachment: fixed; background-color: #333; overflow-x: hidden;">
+
+
+
+        <div class="final__path">
+            <div class="final__pacman"></div>
+            <div class="final__ghost">
+                <div class="final__eyes"></div>
+                <div class="final__skirt"></div>
+            </div>
+        </div>
+
+
+        <p:panel class="panel1">
+            <h:form>
+                <p:outputLabel value="Takmičar:" class="registracija"/>
+                <p:outputLabel value="#{user.username}" style="color: #118c88; position: relative; top: -8px; left: 5px;"/>
+                <p:outputLabel value="Igra:" style="text-decoration: none; color: #333; position: relative; top: -8px; left: 10px;"/>
+                <p:outputLabel value="Moj broj" style="text-decoration: none; color: #ec06fb; position: relative; top: -8px; left: 15px;"/>
+                <p:commandLink value="Rezultati" action="takmicar_rezultati?faces-redirect=true" style="text-decoration: none; color: #a5151d; position: relative; top: -8px; left: 20px;"/>
+                <p:commandLink value="Odjavi se" action="#{logOutController.logout()}" style="text-decoration: none; color: #15a526; position: relative; top: -8px; left: 25px;"/>
+            </h:form>
+        </p:panel>
+
+        <p:panel class="panel2" style="height: 280px;">
+            <h:form id="formMojBroj">
+                <p:growl id="growl" showDetail="true" life="1500"  /> 
+                <p:panelGrid styleClass="ui-panelgrid-blank ui-fluid" style="padding: 10px; width: 100%; margin-top: 40px;">
+
+                    <p:row>
+                        <div style="padding: 10px;" align="center">
+                            <p:commandButton id="broj1" value="#{mojbroj.broj1}" disabled="#{mojbroj.flag_broj1 || mojbroj.poslednji_unos_broj || mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnutbroj1()}" update="formMojBroj"/>
+                            <p:commandButton id="broj2" value="#{mojbroj.broj2}" disabled="#{mojbroj.flag_broj2 || mojbroj.poslednji_unos_broj || mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnutbroj2()}" update="formMojBroj"/>
+                            <p:commandButton id="broj3" value="#{mojbroj.broj3}" disabled="#{mojbroj.flag_broj3 || mojbroj.poslednji_unos_broj || mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnutbroj3()}" update="formMojBroj"/>
+                            <p:commandButton id="broj4" value="#{mojbroj.broj4}" disabled="#{mojbroj.flag_broj4 || mojbroj.poslednji_unos_broj || mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnutbroj4()}" update="formMojBroj"/>
+                            <p:commandButton id="broj5" value="#{mojbroj.broj5}" disabled="#{mojbroj.flag_broj5 || mojbroj.poslednji_unos_broj || mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnutbroj5()}" update="formMojBroj"/>
+                            <p:commandButton id="broj6" value="#{mojbroj.broj6}" disabled="#{mojbroj.flag_broj6 || mojbroj.poslednji_unos_broj || mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnutbroj6()}" update="formMojBroj"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div style="padding: 10px;" align="center">
+                            <p:commandButton id="op1" value="+" disabled="#{mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnut_plus()}" update="formMojBroj"/>
+                            <p:commandButton id="op2" value="-" disabled="#{mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnut_minus()}" update="formMojBroj"/>
+                            <p:commandButton id="op3" value="*" disabled="#{mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnuto_puta()}" update="formMojBroj"/>
+                            <p:commandButton id="op4" value="/" disabled="#{mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnuto_podeljeno()}" update="formMojBroj"/>
+                            <p:commandButton id="op5" value="(" disabled="#{mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnuta_otvorena_zagrada()}" update="formMojBroj"/>
+                            <p:commandButton id="op6" value=")" disabled="#{mojbroj.pocetak || mojbroj.isteklo_vreme}" action="#{mojbroj.pritisnuta_zatvorena_zagrada()}" update="formMojBroj"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:outputLabel id="trazeni_broj" value="#{mojbroj.trazeni_broj}" style="font-weight: bold; margin-right: 3px; padding: 10px;"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center" style="margin-bottom: 5px">
+                            <p:outputLabel value="#{mojbroj.moj_broj_tajmer}" id="tajmer" style="margin-top: 5px; padding: 10px; color: #ec06fb; font-weight: bold"/>
+                            <p:poll interval="1" listener="#{mojbroj.kreni()}" update="tajmer formMojBroj"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div style="padding: 10px;" align="center">
+                            <p:commandButton id="generisi" disabled="#{mojbroj.flag_generisi || mojbroj.isteklo_vreme}" value="GENERIŠI" action="#{mojbroj.stop()}" update="formMojBroj"/>
+                            <p:commandButton id="obrisi" disabled="#{mojbroj.flag_obrisi || mojbroj.pocetak || mojbroj.isteklo_vreme}" value="OBRIŠI" action="#{mojbroj.obrisi()}" update="formMojBroj"/>
+                            <p:commandButton id="potvrdi" disabled="#{mojbroj.flag_potvrdi || mojbroj.pocetak}" value="POTVRDI" action="#{mojbroj.resi()}" update="formMojBroj"/>
+                        </div>
+                    </p:row>
+
+                    <p:row>
+                        <div align="center">
+                            <p:outputLabel id="odgovor" value="#{mojbroj.resenje}" style="color: #ec06fb; font-weight: bold"/>
+                        </div>
+                    </p:row>
+                    <br></br>
+
+                </p:panelGrid>
+            </h:form>
+        </p:panel>
+
+        <div class="footer">
+            <img src="resources/logo.jpg" width="210" height="70"/>
+        </div>
+
+    </h:body>
+</html>
+
